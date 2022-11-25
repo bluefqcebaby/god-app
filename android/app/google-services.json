@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "721463868793",
+    "firebase_url": "https://next-blog-a4d6f-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "next-blog-a4d6f",
+    "storage_bucket": "next-blog-a4d6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:721463868793:android:08964921fce1e04c1c03a8",
+        "android_client_info": {
+          "package_name": "com.godapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "721463868793-us0f52em77h641pljrqh8ph68cv3jt2j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz88443VodK6_Xv31LHqLKP_aFIcWvtyI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "721463868793-us0f52em77h641pljrqh8ph68cv3jt2j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
