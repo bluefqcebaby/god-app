@@ -26,6 +26,7 @@ import Animated, {
 import CustomText from '../../components/custom-text';
 import {useDebounce} from 'use-debounce';
 import {ChatCard} from './views/chat-card';
+import Close from '../../assets/svg/icon-close';
 
 type Props = NativeStackScreenProps<RootProps>;
 
@@ -64,11 +65,11 @@ export const Chat: FC<Props> = ({navigation}) => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity onPress={onPress}>
-          <Search />
+          {isSearching ? <Close /> : <Search />}
         </TouchableOpacity>
       ),
     });
-  }, []);
+  }, [isSearching]);
   const animStyles = useAnimatedStyle(() => ({
     transform: [{translateY: transformValue.value}],
   }));
@@ -101,6 +102,12 @@ export const Chat: FC<Props> = ({navigation}) => {
             onFocus: () => setIsSearching(true),
           }}
         />
+        {isSearchLoading && (
+          <Loader
+            size={'small'}
+            style={{position: 'absolute', right: 10, top: 5, bottom: 0}}
+          />
+        )}
       </Animated.View>
       <Animated.View style={[animList]}>
         {isSearching ? (

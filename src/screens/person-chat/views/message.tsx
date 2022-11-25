@@ -8,15 +8,18 @@ interface Props {
   isMyself: boolean;
 }
 
+const myColor = colors.PRIMARY_BLUE;
+const companionColor = colors.ACCENT_DARK;
+
 export const Message: FC<Props> = ({text, isMyself}) => {
   return (
     <View
       style={{
         flexDirection: 'row',
-        marginBottom: 5,
+        marginBottom: 7,
         paddingVertical: 5,
         paddingHorizontal: 12,
-        backgroundColor: colors.PRIMARY_BLUE,
+        backgroundColor: isMyself ? myColor : companionColor,
         borderRadius: 8,
         maxWidth: '80%',
         alignSelf: isMyself ? 'flex-end' : 'flex-start',
@@ -34,7 +37,7 @@ export const Message: FC<Props> = ({text, isMyself}) => {
           borderRightWidth: 30,
           borderTopWidth: 30,
           borderRightColor: 'transparent',
-          borderTopColor: colors.PRIMARY_BLUE,
+          borderTopColor: isMyself ? myColor : companionColor,
           transform: [{rotate: isMyself ? '-90deg' : '180deg'}],
         }}></View>
       <CustomText>{text}</CustomText>

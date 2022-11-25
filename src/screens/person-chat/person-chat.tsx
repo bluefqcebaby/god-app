@@ -79,7 +79,7 @@ export const PersonChat: FC<Props> = ({navigation, route}) => {
           inverted
           contentContainerStyle={{
             paddingBottom: 10,
-            paddingHorizontal: 24,
+            paddingHorizontal: 12,
             flexDirection: 'column-reverse',
           }}
           data={data}
