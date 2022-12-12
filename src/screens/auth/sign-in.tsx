@@ -26,8 +26,8 @@ export const SignIn: FC<Props> = ({navigation}) => {
     password: '',
   });
   const {isLoading, mutate} = useMutation(signIn, {
-    onSuccess: async (data, variables) => {
-      await AsyncStorage.setItem('token', data);
+    onSuccess: async token => {
+      await AsyncStorage.setItem('token', token);
       // @ts-ignore
       navigation.replace('Tabs');
     },
@@ -57,6 +57,12 @@ export const SignIn: FC<Props> = ({navigation}) => {
       );
     });
   }, []);
+  const onLoginPress = (values: typeof formValues) => {
+    const {username, password} = values;
+    values.username = username.trim();
+    values.password = password.trim();
+    mutate(values);
+  };
   return (
     <>
       <Screen
@@ -84,7 +90,7 @@ export const SignIn: FC<Props> = ({navigation}) => {
         <CustomButton
           text={'Войти'}
           loading={isLoading}
-          onPress={() => mutate(formValues)}
+          onPress={() => onLoginPress(formValues)}
         />
         <Pressable onPress={onSignUpPress}>
           <CustomText secondary style={{textAlign: 'center', marginTop: 15}}>

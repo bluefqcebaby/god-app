@@ -23,10 +23,12 @@ export const SignUp: FC<Props> = ({navigation}) => {
   });
   const {isLoading, mutate} = useMutation(signUp, {
     onSuccess: async (data, variables, context) => {
-      showToast('success', 'Перенаправляем на главный экран..');
       const token = await signIn(variables);
       await AsyncStorage.setItem('token', token);
-      navigation.replace('Home');
+      navigation.replace('Tabs');
+    },
+    onSettled: () => {
+      setLoading(false);
     },
     onError: error => {
       const err = error as AxiosError;
@@ -40,6 +42,7 @@ export const SignUp: FC<Props> = ({navigation}) => {
   });
   console.log(isLoading);
   const onSubmit = async () => {
+    setLoading(true);
     const {username, password, password_repeat} = formValues;
     if (password.length < 5) {
       showToast('error', 'Пароль слишком короткий');
@@ -58,7 +61,6 @@ export const SignUp: FC<Props> = ({navigation}) => {
     } catch (e) {
       console.log('ERROR IN SIGN UP COMPONENT >>> ', e);
     }
-    console.log(formValues);
   };
   return (
     <Screen
@@ -71,7 +73,7 @@ export const SignUp: FC<Props> = ({navigation}) => {
         style={{marginBottom: 15}}
         props={{
           value: formValues.username,
-          onChangeText: text => handleFormValueChange('password', text),
+          onChangeText: text => handleFormValueChange('username', text),
         }}
       />
       <CustomTextInput
@@ -87,7 +89,7 @@ export const SignUp: FC<Props> = ({navigation}) => {
         label={'Повтор пароля'}
         style={{marginBottom: 15}}
         props={{
-          secureTextEntry: false,
+          secureTextEntry: true,
           value: formValues.password_repeat,
           onChangeText: text => handleFormValueChange('password_repeat', text),
         }}

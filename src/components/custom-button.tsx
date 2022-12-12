@@ -14,7 +14,7 @@ interface Props {
   text: string;
   loading?: boolean;
   isDelete?: boolean;
-  onPress: () => void;
+  onPress: (args: any) => void;
   style?: ViewStyle;
   outlet?: boolean;
 }

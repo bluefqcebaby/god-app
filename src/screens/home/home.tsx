@@ -20,7 +20,7 @@ import Animated, {FadeIn} from 'react-native-reanimated';
 type Props = NativeStackScreenProps<RootProps, 'Tabs'>;
 
 const Home: FC<Props> = ({navigation}) => {
-  useGlobalSocket();
+  const socket = useGlobalSocket();
   const queryClient = useQueryClient();
   const {isLoading, data} = useQuery([keys.cards], getCards);
   const [modalVisible, setModalVisible] = useState(false);
@@ -28,6 +28,7 @@ const Home: FC<Props> = ({navigation}) => {
   const onLeave = async () => {
     await AsyncStorage.setItem('token', '');
     queryClient.clear();
+    // socket.close();
     navigation.replace('Auth');
   };
   useLayoutEffect(() => {
@@ -44,10 +45,6 @@ const Home: FC<Props> = ({navigation}) => {
       ),
     });
   }, [navigation]);
-  // useEffect(() => {
-  //   console.log(socket);
-  //   setOnSend(() => socket?.send);
-  // }, [socket]);
   let condition = false;
   if (data) {
     condition = data.length > 0;

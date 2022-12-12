@@ -1,0 +1,31 @@
+
+before_all do
+  ensure_git_branch(branch: 'main')
+  ensure_git_status_clean
+  git_pull
+end
+
+platform :android do
+  # Android Lanes
+  desc "Build APK"
+    lane :beta do
+      raw = File.read('../../version').strip
+
+      build = raw.gsub(/\.+/, '').to_i + 202
+      version = raw
+
+      gradle(
+        task: 'clean',
+        project_dir: 'android/'
+      )
+
+      gradle(
+        task: "app:assembleRelease",
+        project_dir: 'android/',
+        properties: {
+          "versionCode" => build,
+          "versionName" => version,
+        }
+    )
+  end
+end

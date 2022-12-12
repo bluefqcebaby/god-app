@@ -139,7 +139,7 @@ export const Chat: FC<Props> = ({navigation}) => {
                 }
               />
             )}
-            contentContainerStyle={{paddingHorizontal: 24, paddingBottom: 100}}
+            contentContainerStyle={{paddingHorizontal: 24}}
             keyExtractor={item => item.username}
           />
         )}
