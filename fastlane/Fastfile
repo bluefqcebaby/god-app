@@ -9,7 +9,7 @@ platform :android do
   # Android Lanes
   desc "Build APK"
     lane :beta do
-      raw = File.read('../../version').strip
+      raw = File.read('../version').strip
 
       build = raw.gsub(/\.+/, '').to_i + 202
       version = raw
