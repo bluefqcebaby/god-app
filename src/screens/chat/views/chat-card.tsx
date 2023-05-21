@@ -1,17 +1,18 @@
-import {FC} from 'react';
-import {Pressable, StyleSheet, View} from 'react-native';
-import CustomText from '../../../components/custom-text';
-import {colors} from '../../../constants/styles';
-import {IChatUser} from '../../../api/chat';
-import {getTimeFromDate} from '../../../lib/helpers';
+import { FC } from 'react'
+import { Pressable, StyleSheet, View } from 'react-native'
+import CustomText from '../../../components/custom-text'
+import { colors } from '../../../constants/styles'
+import { getTimeFromDate } from '../../../lib/helpers'
+import { IUserChat } from 'src/store/chat/types'
+import { observer } from 'mobx-react-lite'
 
 interface Props {
-  user: IChatUser;
-  onPress: () => void;
+  chat: IUserChat
+  onPress: () => void
 }
 
-export const ChatCard: FC<Props> = ({user, onPress}) => {
-  const {message, time, is_myself} = user.last_message;
+export const ChatCard: FC<Props> = observer(({ chat, onPress }) => {
+  const { message, time, isMyself } = chat.lastMessage
   return (
     <Pressable style={styles.box} onPress={onPress}>
       <View
@@ -21,19 +22,19 @@ export const ChatCard: FC<Props> = ({user, onPress}) => {
           justifyContent: 'space-between',
         }}>
         <CustomText bold size={20}>
-          {user.username}
+          {chat.username}
         </CustomText>
         <CustomText>{getTimeFromDate(new Date(time))}</CustomText>
       </View>
-      {is_myself && <CustomText secondary>ты</CustomText>}
+      {isMyself && <CustomText secondary>ты</CustomText>}
       <View>
-        <CustomText size={15} props={{numberOfLines: 2}}>
-          {user.last_message.message}
+        <CustomText size={15} props={{ numberOfLines: 2 }}>
+          {message}
         </CustomText>
       </View>
     </Pressable>
-  );
-};
+  )
+})
 
 const styles = StyleSheet.create({
   box: {
@@ -45,4 +46,4 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.BORDER,
   },
-});
+})

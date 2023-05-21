@@ -1,15 +1,15 @@
-import {Pressable, StatusBar, View, ViewStyle} from 'react-native';
-import {colors} from '../constants/styles';
-import {FC, ReactNode} from 'react';
-import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import { Pressable, View, ViewStyle } from 'react-native'
+import { colors } from '../constants/styles'
+import { FC, ReactNode } from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 interface Screen {
-  children: ReactNode;
-  style?: ViewStyle;
-  container?: boolean;
-  safe?: boolean;
-  pressable?: boolean;
-  onPress?: () => void;
+  children: ReactNode
+  style?: ViewStyle
+  container?: boolean
+  safe?: boolean
+  pressable?: boolean
+  onPress?: () => void
 }
 
 const Screen: FC<Screen> = ({
@@ -21,7 +21,7 @@ const Screen: FC<Screen> = ({
   onPress,
 }) => {
   // children = <SafeAreaView>{children}</SafeAreaView>;
-  const Container = safe ? SafeAreaView : pressable ? Pressable : View;
+  const Container = safe ? SafeAreaView : pressable ? Pressable : View
   return (
     <Container
       onPress={onPress}
@@ -33,7 +33,7 @@ const Screen: FC<Screen> = ({
       }}>
       {children}
     </Container>
-  );
-};
+  )
+}
 
-export default Screen;
+export default Screen

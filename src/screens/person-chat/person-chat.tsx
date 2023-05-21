@@ -1,12 +1,7 @@
-import Screen from '../../components/screen';
-import CustomText from '../../components/custom-text';
-import {FC, useContext, useEffect, useRef, useState} from 'react';
-import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {ChatParams} from '../../navigation/ChatStack';
-import {useQuery, useQueryClient} from '@tanstack/react-query';
-import {keys} from '../../constants/strings';
-import {getMessages} from '../../api/chat';
-import CustomTextInput from '../../components/custom-text-input';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack'
+import * as UI from '@components'
+import { Observer, observer } from 'mobx-react-lite'
+import { FC, useContext, useEffect, useState } from 'react'
 import {
   FlatList,
   Keyboard,
@@ -14,67 +9,50 @@ import {
   StyleSheet,
   TextInput,
   View,
-} from 'react-native';
-import {Context, RootProps} from '../../../App';
-import Loader from '../../components/loader';
-import ArrowRight from '../../assets/svg/arrow-right';
-import {colors} from '../../constants/styles';
-import {useGlobalSocket} from '../../hooks/useGlobalSocket';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Message} from './views/message';
+} from 'react-native'
+import { RootProps } from '../../../App'
+import ArrowRight from '../../assets/svg/arrow-right'
+import Screen from '../../components/screen'
+import { colors } from '../../constants/styles'
+import { Message } from './views/message'
+import { ChatStoreContext, useChatStore } from 'src/store/chat/chat'
+import { ScrollView } from 'react-native-gesture-handler'
 
-type Props = NativeStackScreenProps<RootProps, 'ProfileChat'>;
+type Props = NativeStackScreenProps<RootProps, 'ProfileChat'>
 
-export const PersonChat: FC<Props> = ({navigation, route}) => {
-  const {socket} = useContext(Context);
-  const queryClient = useQueryClient();
-  const {id} = route.params;
-  const {data, isLoading} = useQuery([keys.messages, id], () =>
-    getMessages(id),
-  );
-  const nameRef = useRef<string>();
-  const [message, setMessage] = useState('');
-  useEffect(() => {
-    (async () => {
-      const name = await AsyncStorage.getItem('name');
-      if (name) {
-        nameRef.current = name;
-      }
-    })();
-    navigation.setOptions({title: id});
-  }, []);
-  if (isLoading) {
-    return (
-      <Screen>
-        <Loader
-          style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
-          }}
-        />
-      </Screen>
-    );
+export const PersonChat: FC<Props> = observer(({ navigation, route }) => {
+  const chatStore = useChatStore()
+
+  const { messageField, setMessageField, sendNewMessage } = chatStore
+
+  const { id } = route.params
+
+  const sendMessage = () => {
+    sendNewMessage(id)
   }
-  const onMessage = async () => {
-    const sendMessage = {
-      sender: nameRef.current,
-      receiver: id,
-      message,
-    };
-    socket!.send(JSON.stringify(sendMessage));
-    data?.push({from: nameRef.current!, to: id, message});
-    setMessage('');
-    await queryClient.invalidateQueries([keys.chatUsers]);
-  };
+
+  useEffect(() => {
+    navigation.setOptions({ title: id })
+  }, [])
+
+  // if (isLoading) {
+  //   return (
+  //     <Screen>
+  //       <Loader
+  //         style={{
+  //           position: 'absolute',
+  //           left: 0,
+  //           right: 0,
+  //           top: 0,
+  //           bottom: 0,
+  //         }}
+  //       />
+  //     </Screen>
+  //   )
+  // }
   return (
     <>
-      <Screen
-        style={{flexDirection: 'row'}}
-        pressable
-        onPress={() => Keyboard.dismiss()}>
+      <Screen pressable onPress={() => Keyboard.dismiss()}>
         <FlatList
           inverted
           contentContainerStyle={{
@@ -82,10 +60,15 @@ export const PersonChat: FC<Props> = ({navigation, route}) => {
             paddingHorizontal: 12,
             flexDirection: 'column-reverse',
           }}
-          data={data}
-          renderItem={({item}) => (
-            <Message text={item.message} isMyself={item.from !== id} />
+          data={chatStore.messages.get(id)?.slice()}
+          renderItem={({ item }) => (
+            <Message
+              text={item.message}
+              isMyself={item.from !== id}
+              time={item.time}
+            />
           )}
+          keyExtractor={item => item.id}
         />
       </Screen>
 
@@ -93,19 +76,20 @@ export const PersonChat: FC<Props> = ({navigation, route}) => {
         <TextInput
           style={styles.input}
           placeholder="Сообщение"
+          placeholderTextColor="gray"
           multiline
-          value={message}
-          onChangeText={text => setMessage(text)}
+          value={messageField}
+          onChangeText={setMessageField}
         />
-        {message.trim().length > 0 && (
-          <Pressable onPress={onMessage} style={styles.sendButton}>
+        {messageField.trim().length > 0 && (
+          <Pressable onPress={sendMessage} style={styles.sendButton}>
             <ArrowRight />
           </Pressable>
         )}
       </View>
     </>
-  );
-};
+  )
+})
 
 const styles = StyleSheet.create({
   input: {
@@ -122,4 +106,4 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     marginBottom: 8,
   },
-});
+})

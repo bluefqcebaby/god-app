@@ -1,17 +1,17 @@
-import {Text, TextProps, TextStyle} from 'react-native';
-import {colors} from '../constants/styles';
-import {FC, ReactNode} from 'react';
+import { Text, TextProps, TextStyle } from 'react-native'
+import { colors } from '../constants/styles'
+import { FC, ReactNode } from 'react'
 
 //secondary: boolean
 
 interface Props {
-  bold?: boolean;
-  secondary?: boolean;
-  size?: number;
-  style?: TextStyle;
-  children: ReactNode;
-  loading?: boolean;
-  props?: TextProps;
+  bold?: boolean
+  secondary?: boolean
+  size?: number
+  style?: TextStyle
+  children: ReactNode
+  loading?: boolean
+  props?: TextProps
 }
 
 const customText: FC<Props> = ({
@@ -38,6 +38,6 @@ const customText: FC<Props> = ({
       }}>
       {children}
     </Text>
-  );
-};
-export default customText;
+  )
+}
+export default customText

@@ -1,6 +1,15 @@
 apply plugin: "com.android.application"
+
+project.ext.envConfigFiles = [
+   productiondebug: ".env.production",
+   productionrelease: ".env.production",
+   developmentrelease: ".env.development",
+   developmentdebug: ".env.development",
+]
+
 apply plugin: "com.google.gms.google-services"
 apply plugin: "com.facebook.react"
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 import com.android.build.OutputFile
 
@@ -94,6 +103,7 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
+
     namespace "com.godapp"
     defaultConfig {
         applicationId "com.godapp"
@@ -102,6 +112,7 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
 
     splits {
         abi {
@@ -122,6 +133,7 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            matchingFallbacks = ['debug', 'release']
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
@@ -129,6 +141,15 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+    }
+
+    flavorDimensions "default"
+    productFlavors {
+        production {
+        }
+
+        development {
         }
     }
 

@@ -1,14 +1,5 @@
-import {api} from './cards';
-import {BASE_URL} from '../constants/strings';
-
-export interface IChatUser {
-  username: string;
-  last_message: {
-    message: string;
-    time: number;
-    is_myself: boolean;
-  };
-}
+import { api } from './cards';
+import { BASE_URL } from '../constants/strings';
 
 export const getChatUsers = async (): Promise<IChatUser[]> => {
   const response = await api.get<IChatUser[]>(`/chat_users`);

@@ -9,12 +9,10 @@ import {useFormData} from '../../hooks/useFormData';
 import {useMutation} from '@tanstack/react-query';
 import {signIn} from '../../api/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {hideToast, showToast} from '../../lib/toast';
+import {showToast} from '../../lib/toast';
 import {AxiosError} from 'axios';
 import messaging from '@react-native-firebase/messaging';
-import {Routes} from '../../navigation/routes';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootProps} from '../../../App';
 import {AuthProps} from '../../navigation/AuthStack';
 
 type Props = NativeStackScreenProps<AuthProps>;

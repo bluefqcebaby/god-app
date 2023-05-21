@@ -1,17 +1,19 @@
-import {FC} from 'react';
-import {View} from 'react-native';
-import CustomText from '../../../components/custom-text';
-import {colors} from '../../../constants/styles';
+import { FC } from 'react'
+import { View } from 'react-native'
+import CustomText from '../../../components/custom-text'
+import { colors } from '../../../constants/styles'
+import { format, parse } from 'date-fns'
 
 interface Props {
-  text: string;
-  isMyself: boolean;
+  text: string
+  isMyself: boolean
+  time: Date
 }
 
-const myColor = colors.PRIMARY_BLUE;
-const companionColor = colors.ACCENT_DARK;
+const myColor = colors.PRIMARY_BLUE
+const companionColor = colors.ACCENT_DARK
 
-export const Message: FC<Props> = ({text, isMyself}) => {
+export const Message: FC<Props> = ({ text, isMyself, time }) => {
   return (
     <View
       style={{
@@ -38,9 +40,13 @@ export const Message: FC<Props> = ({text, isMyself}) => {
           borderTopWidth: 30,
           borderRightColor: 'transparent',
           borderTopColor: isMyself ? myColor : companionColor,
-          transform: [{rotate: isMyself ? '-90deg' : '180deg'}],
-        }}></View>
+          transform: [{ rotate: isMyself ? '-90deg' : '180deg' }],
+        }}
+      />
       <CustomText>{text}</CustomText>
+      <CustomText secondary size={12}>
+        {format(time, 'HH:mm')}
+      </CustomText>
     </View>
-  );
-};
+  )
+}

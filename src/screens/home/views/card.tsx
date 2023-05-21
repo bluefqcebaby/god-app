@@ -1,5 +1,5 @@
 import {FC, useEffect, useState} from 'react';
-import {Pressable, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import CustomText from '../../../components/custom-text';
 import {colors} from '../../../constants/styles';
 import PlusIcon from '../../../assets/svg/plus-icon';
@@ -30,12 +30,16 @@ interface Props {
 }
 
 const Card: FC<Props> = ({title, date, counter, id, index}) => {
-  const queryClient = useQueryClient();
   const opacityValue = useSharedValue(0);
+
   const translateValue = useSharedValue(100);
+
   const [deleteModal, setDeleteModal] = useState(false);
+
   const [card, setCard] = useState<ICard>({title, date, counter, id});
+
   const [loading, setLoading] = useState(false);
+
   const mutationUpdate = useMutation(updateCard, {
     onError: e => {
       handleError(e);
@@ -49,6 +53,7 @@ const Card: FC<Props> = ({title, date, counter, id, index}) => {
       setLoading(false);
     },
   });
+
   const onPress = async (number: number) => {
     if (number < 0) {
       showToast('error', 'Отрицательное число');
@@ -61,12 +66,14 @@ const Card: FC<Props> = ({title, date, counter, id, index}) => {
       counter: number,
     });
   };
+
   const animatedStyles = useAnimatedStyle(() => {
     return {
       opacity: opacityValue.value,
       transform: [{translateX: translateValue.value}],
     };
   });
+
   useEffect(() => {
     (async () => {
       await timeout(75 * index);
@@ -74,6 +81,7 @@ const Card: FC<Props> = ({title, date, counter, id, index}) => {
       translateValue.value = withSpring(0);
     })();
   }, []);
+
   return (
     <>
       <TouchableOpacity

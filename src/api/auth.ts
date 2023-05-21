@@ -1,5 +1,5 @@
 import {api} from './cards';
-import {AxiosError, AxiosResponse} from 'axios';
+import {AxiosResponse} from 'axios';
 
 interface signUpInProps {
   username: string;
@@ -18,10 +18,5 @@ export const signIn = async (params: signUpInProps) => {
 export const checkAuth = async (): Promise<
   AxiosResponse<{username: string}> | undefined
 > => {
-  try {
-    return await api.get<{username: string}>('/get_current_user');
-  } catch (e) {
-    const err = e as AxiosError;
-    return;
-  }
+  return await api.get<{username: string}>('/get_current_user');
 };
