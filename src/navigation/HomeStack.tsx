@@ -1,15 +1,15 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {colors} from '../constants/styles';
-import CustomText from '../components/custom-text';
-import HomeComponent from '../screens/home/home';
-import {Routes} from './routes';
-import {View} from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { colors } from '../constants/styles'
+import Text from '../shared/ui/text'
+import HomeComponent from '../screens/home/home'
+import { Routes } from './routes'
+import { View } from 'react-native'
 
 export type HomeProps = {
-  Home: undefined;
-};
+  Home: undefined
+}
 
-const Home = createNativeStackNavigator<HomeProps>();
+const Home = createNativeStackNavigator<HomeProps>()
 
 export const HomeStack = () => {
   return (
@@ -35,5 +35,5 @@ export const HomeStack = () => {
         />
       </Home.Group>
     </Home.Navigator>
-  );
-};
+  )
+}

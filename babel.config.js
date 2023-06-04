@@ -1,7 +1,9 @@
 module.exports = {
   presets: ['module:metro-react-native-babel-preset'],
+
   plugins: [
     'react-native-reanimated/plugin',
+    '@babel/plugin-proposal-class-properties',
     [
       'module-resolver',
       {
@@ -18,11 +20,12 @@ module.exports = {
         ],
         root: ['.'],
         alias: {
-          '@api': './src/api',
-          '@assets': './src/assets',
-          '@components': './src/components',
-          '@screens': './src/screens',
-          '@lib': './src/lib',
+          '@widgets': './src/widgets',
+          '@pages': './src/pages',
+          '@shared': './src/shared',
+          '@entities': './src/entities',
+          '@features': './src/features',
+          '@': './src/app/store',
         },
       },
     ],

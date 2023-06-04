@@ -7,14 +7,15 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "strictPropertyInitialization": false,
     "allowImportingTsExtensions": true,
+    "useDefineForClassFields": true,
     "baseUrl": ".",
     "paths": {
-      "@api/*": ["src/api/*"],
-      "@assets/*": ["src/assets/*"],
-      "@components/*": ["src/components/*"],
-      "@components": ["src/components"],
-      "@screens/*": ["src/screens/*"],
-      "@lib/*": ["src/lib/*"]
+      "@pages/*": ["src/pages/*"],
+      "@widgets/*": ["src/widgets/*"],
+      "@shared/*": ["src/shared/*"],
+      "@entities/*": ["src/entities/*"],
+      "@features/*": ["src/features/*"],
+      "@": ["src/app/store"]
     }
   }
 }

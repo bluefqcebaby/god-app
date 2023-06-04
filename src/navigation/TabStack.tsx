@@ -1,18 +1,16 @@
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import {Routes} from './routes';
-import {colors} from '../constants/styles';
-import {tabs} from '../assets/data';
-import SvgIcon from '../components/SvgIcon';
-import HomeIcon from '../assets/svg/home-icon';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import CustomText from '../components/custom-text';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
+import { Routes } from './routes'
+import { colors } from '../constants/styles'
+import { tabs } from '../assets/data'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Text from '../shared/ui/text'
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator()
 
 export const TabsStack = () => {
   return (
     <Tab.Navigator
-      initialRouteName={Routes._home}
+      initialRouteName={Routes.chat}
       backBehavior={'initialRoute'}
       activeColor={'#0582FF'}
       inactiveColor={'#AEAAAE'}
@@ -25,12 +23,12 @@ export const TabsStack = () => {
       {tabs.map(elem => (
         <Tab.Screen
           key={elem.title}
-          name={elem.path}
+          name={elem.name}
           component={elem.screen}
           options={{
             //@ts-ignore
-            tabBarLabel: <CustomText size={12}>{elem.title}</CustomText>,
-            tabBarIcon: ({focused}) => (
+            tabBarLabel: <Text size={12}>{elem.title}</Text>,
+            tabBarIcon: ({ focused }) => (
               <MaterialCommunityIcons
                 color={focused ? colors.PRIMARY_BLUE : colors.GRAY}
                 size={26}
@@ -41,5 +39,5 @@ export const TabsStack = () => {
         />
       ))}
     </Tab.Navigator>
-  );
-};
+  )
+}

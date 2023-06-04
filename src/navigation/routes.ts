@@ -1,6 +1,6 @@
 type IRoutes = {
-  [key: string]: string;
-};
+  [key: string]: string
+}
 
 export const Routes = {
   //stacks
@@ -15,4 +15,4 @@ export const Routes = {
   signUp: 'signUp',
   chat: 'chat',
   person_chat: 'chat:id',
-};
+}

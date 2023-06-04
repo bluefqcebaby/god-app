@@ -1,0 +1,13 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/shared/assets/fonts/Golos.ttf",
+      "sha1": "8e121ea25078fad9ddf4beed9fe9084dce2b12bb"
+    },
+    {
+      "path": "src/shared/assets/fonts/GolosBold.ttf",
+      "sha1": "9f27ae39674ede33796dd272128b9fd05e4bc979"
+    }
+  ]
+}

@@ -13,9 +13,10 @@ import {
 import { array } from 'yup'
 import { createContext, useContext } from 'react'
 import messaging from '@react-native-firebase/messaging'
+import { AppStore } from 'src/shared/store/app-store'
 
 export class ChatStore {
-  constructor() {
+  constructor(private app: AppStore) {
     makeAutoObservable(this, {}, { autoBind: true, deep: true })
   }
 
@@ -50,6 +51,7 @@ export class ChatStore {
   clear() {
     this.messages.clear()
     this.chats = []
+    this.closeSocket()
   }
 
   private handleAuthEvent(data: any[]) {
@@ -179,9 +181,3 @@ export class ChatStore {
     this.socket.close()
   }
 }
-
-export const counterStore = new ChatStore()
-
-// Create a React Context with the counter store instance.
-export const ChatStoreContext = createContext<ChatStore>(counterStore)
-export const useChatStore = () => useContext(ChatStoreContext)

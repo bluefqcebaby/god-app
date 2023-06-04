@@ -1,0 +1,13 @@
+export const colors = {
+  DARK_BACKGROUND: '#1C1B1F',
+  PRIMARY_BLUE: '#0582FF',
+  WHITE: '#E6E1E5',
+  GRAY: '#787579',
+  GREEN: '#50B452',
+  RED: '#FF4C42',
+  MIDNIGHT: 'rgba(227, 227, 227, 0.12)',
+  EVENING: 'rgba(230, 225, 229, 0.32)',
+  ACCENT_DARK: '#322E3A',
+  BORDER: '#4b455a',
+  DARK_LINK: '#AEAAAE',
+}
