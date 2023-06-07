@@ -27,7 +27,7 @@ const Header: FC<Props> = ({ left, center, right, safeBlock = true }) => {
 const styles = RN.StyleSheet.create({
   left: {
     position: 'absolute',
-    left: 20,
+    left: 0,
   },
   safeBlock: {
     zIndex: 99,
@@ -35,7 +35,7 @@ const styles = RN.StyleSheet.create({
   },
   right: {
     position: 'absolute',
-    right: 20,
+    right: 0,
   },
   wrapper: {
     zIndex: 99,

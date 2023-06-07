@@ -26,9 +26,11 @@ const TextInput = forwardRef<RN.TextInput, Props>(
             style={[s.input, error && s.errorInput]}
             {...props}
           />
-          <Text size={12} style={[s.helperText, error && s.helperTextError]}>
-            {helperText}
-          </Text>
+          {helperText !== '' ? (
+            <Text size={12} style={[s.helperText, error && s.helperTextError]}>
+              {helperText}
+            </Text>
+          ) : null}
         </RN.View>
         <Spacer size={10} />
       </>

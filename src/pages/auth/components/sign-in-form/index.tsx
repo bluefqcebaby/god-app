@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import { Pressable, TouchableOpacity, View } from 'react-native'
+import * as RN from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Controller, useForm } from 'react-hook-form'
 import { loginSchema, IUser } from '../../types'
@@ -15,8 +15,6 @@ const defaultValues: IUser = {
 }
 
 export const SignIn: FC = () => {
-  console.log(123)
-
   const navigation = useNavigation()
   const authStore = useAuthStore()
 
@@ -28,8 +26,6 @@ export const SignIn: FC = () => {
     mode: 'onChange',
     resolver: yupResolver(loginSchema),
   })
-
-  const [open, setIsOpen] = useState(true)
 
   const handleSignUpRedirect = () => navigation.navigate('sign-up' as never)
   return (
@@ -58,20 +54,23 @@ export const SignIn: FC = () => {
               label="Пароль"
               onChangeText={onChange}
               value={value}
+              secureTextEntry
               error={!!errors.password?.message}
               helperText={errors.password?.message}
             />
           )}
           name="password"
         />
-        <TouchableOpacity onPress={handleSignUpRedirect}>
-          <UI.Text link>Регистрация</UI.Text>
-        </TouchableOpacity>
-        <UI.Button
-          style={s.submitButton}
-          text="Войти"
-          onPress={handleSubmit(authStore.login)}
-        />
+
+        <RN.View style={s.bottomContent}>
+          <UI.Button text="Войти" onPress={handleSubmit(authStore.login)} />
+          <UI.Button
+            type="outlet"
+            style={s.registerButton}
+            text="Регистрация"
+            onPress={handleSignUpRedirect}
+          />
+        </RN.View>
       </UI.Screen>
     </>
   )

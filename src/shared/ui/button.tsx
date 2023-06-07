@@ -4,45 +4,39 @@ import Text from './text'
 import Loader from './loader'
 import { colors } from '@shared/consts/colors'
 
-interface Props extends RN.PressableProps {
+type ButtonType = 'danger' | 'outlet'
+
+interface Props extends RN.TouchableOpacityProps {
   text: string
   loading?: boolean
   danger?: boolean
-  onPress: (args: any) => void
+  type?: ButtonType
   outlet?: boolean
 }
 
 const Button: FC<Props> = ({
   text,
-  loading,
+  loading = false,
   outlet,
   danger,
-  onPress,
+  type,
   ...props
 }) => {
-  const color = loading
-    ? colors.MIDNIGHT
-    : danger
-    ? colors.RED
-    : colors.PRIMARY_BLUE
   return (
     <RN.TouchableOpacity
-      onPress={onPress}
+      {...props}
       style={[
-        {
-          backgroundColor: outlet ? undefined : color,
-        },
         s.button,
-        props.style as RN.StyleProp<RN.ViewStyle>,
-      ]}
-      disabled={loading}>
+        type === 'danger' && s.buttonDanger,
+        type === 'outlet' && s.buttonOutlet,
+        props.style,
+      ]}>
       {loading && <Loader style={s.loader} />}
-      <Text
-        bold
-        loading={loading}
-        style={{ color: outlet ? colors.DARK_LINK : undefined }}>
-        {text}
-      </Text>
+      {!loading && (
+        <Text bold style={[s.text, type === 'outlet' && s.outletText]}>
+          {text}
+        </Text>
+      )}
     </RN.TouchableOpacity>
   )
 }
@@ -51,12 +45,28 @@ const s = RN.StyleSheet.create({
   loader: {
     position: 'absolute',
   },
+  text: {
+    color: colors.WHITE,
+  },
+  outletText: {
+    color: colors.DARK_LINK,
+  },
   button: {
     borderRadius: 8,
+    backgroundColor: colors.PRIMARY_BLUE,
     paddingVertical: 12,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 10,
+  },
+  buttonLoading: {
+    backgroundColor: colors.MIDNIGHT,
+  },
+  buttonDanger: {
+    backgroundColor: colors.RED,
+  },
+  buttonOutlet: {
+    backgroundColor: 'transparent',
   },
 })
 

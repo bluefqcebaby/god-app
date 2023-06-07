@@ -7,8 +7,11 @@ export const s = StyleSheet.create({
   registerText: {
     textAlign: 'right',
   },
-  submitButton: {
+  bottomContent: {
     marginVertical: 20,
     marginTop: 'auto',
+  },
+  registerButton: {
+    marginTop: 10,
   },
 })

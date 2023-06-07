@@ -13,7 +13,6 @@ import * as RN from 'react-native'
 
 function App() {
   // useSubscribeAuthState()
-  console.log(123)
   return (
     <>
       <StatusBar style={'light'} />

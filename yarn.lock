@@ -5492,7 +5492,7 @@ __metadata:
     mobx-react-lite: ^3.4.3
     react: 18.2.0
     react-hook-form: ^7.44.3
-    react-native: 0.71.7
+    react-native: 0.71.10
     react-native-config: ^1.5.0
     react-native-flipper: ^0.192.0
     react-native-gesture-handler: ^2.9.0
@@ -8239,10 +8239,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-gradle-plugin@npm:^0.71.17":
-  version: 0.71.17
-  resolution: "react-native-gradle-plugin@npm:0.71.17"
-  checksum: 5ff996bafc3959a36551dc34d481cefb070ede4025b5eb2ce659f51adf74ba0e6845cc019ea1d547e0b4007f1c3c68146fa719688f09bde308f25320c6c6f834
+"react-native-gradle-plugin@npm:^0.71.19":
+  version: 0.71.19
+  resolution: "react-native-gradle-plugin@npm:0.71.19"
+  checksum: 2e3ab679f0b81edd81b9fb88a73a16c8b9b6dbef4e7158fd894c42e6dff04ba8d11f1b9663ffa2c30d0d9deee3cd44b033cd280322c010be3c290e4422088a7a
   languageName: node
   linkType: hard
 
@@ -8363,9 +8363,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native@npm:0.71.7":
-  version: 0.71.7
-  resolution: "react-native@npm:0.71.7"
+"react-native@npm:0.71.10":
+  version: 0.71.10
+  resolution: "react-native@npm:0.71.10"
   dependencies:
     "@jest/create-cache-key-function": ^29.2.1
     "@react-native-community/cli": 10.2.2
@@ -8392,7 +8392,7 @@ __metadata:
     promise: ^8.3.0
     react-devtools-core: ^4.26.1
     react-native-codegen: ^0.71.5
-    react-native-gradle-plugin: ^0.71.17
+    react-native-gradle-plugin: ^0.71.19
     react-refresh: ^0.4.0
     react-shallow-renderer: ^16.15.0
     regenerator-runtime: ^0.13.2
@@ -8405,7 +8405,7 @@ __metadata:
     react: 18.2.0
   bin:
     react-native: cli.js
-  checksum: efd91d5560290b883e0d3d3482cc4657268c2e480171b63a0c6b7dc8f6b1331298feac7d9966e1831d95d9fee893dfa831252052561232843e4982880238f09e
+  checksum: 08780690cdbdb15798bb59666ab7deabb4555904e78bcade60be42a35ea75365a668c2b5da1f3b431a66d0f1614e143344024ed8be49c219cd034a17fabb1ae9
   languageName: node
   linkType: hard
 
@@ -9678,11 +9678,11 @@ __metadata:
 
 "typescript@patch:typescript@^5.0.4#~builtin<compat/typescript>":
   version: 5.0.4
-  resolution: "typescript@patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=85af82"
+  resolution: "typescript@patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: bb309d320c59a26565fb3793dba550576ab861018ff3fd1b7fccabbe46ae4a35546bc45f342c0a0b6f265c801ccdf64ffd68f548f117ceb7f0eac4b805cd52a9
+  checksum: d26b6ba97b6d163c55dbdffd9bbb4c211667ebebc743accfeb2c8c0154aace7afd097b51165a72a5bad2cf65a4612259344ff60f8e642362aa1695c760d303ac
   languageName: node
   linkType: hard
 

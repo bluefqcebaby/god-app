@@ -1,22 +1,28 @@
-import { FC, useState } from 'react'
-import { AxiosError } from 'axios'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useState } from 'react'
+import * as RN from 'react-native'
 import * as UI from '@shared/ui'
 import { Controller, useForm } from 'react-hook-form'
 import { IRegisterForm, registerSchema } from '@pages/auth/types'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useAuthStore } from '@pages/auth/lib/use-auth-store'
 import { useNavigation } from '@react-navigation/native'
+import LeftArrow from '@shared/assets/svg/left-arrow'
+import { s } from './style'
 
 export const SignUp = () => {
-  const navigation = useNavigation()
+  const { reset, goBack } = useNavigation()
   const authStore = useAuthStore()
 
   const {
     control,
     handleSubmit,
-    formState: { errors },
-  } = useForm<IRegisterForm>({ resolver: yupResolver(registerSchema) })
+    formState: { errors, isValid },
+  } = useForm<IRegisterForm>({
+    mode: 'onSubmit',
+    resolver: yupResolver(registerSchema),
+  })
+
+  console.log(errors)
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -27,54 +33,67 @@ export const SignUp = () => {
     if (!result) {
       return
     }
-    navigation.reset({ index: 0, routes: [{ name: 'tabs' as never }] })
+    reset({ index: 0, routes: [{ name: 'tabs' as never }] })
   }
 
   return (
     <UI.Screen container>
-      <UI.Spacer size={40} />
+      <UI.Header
+        left={
+          <RN.TouchableOpacity onPress={goBack}>
+            <LeftArrow />
+          </RN.TouchableOpacity>
+        }
+        center={<UI.Text>Регистрация</UI.Text>}
+      />
       <Controller
         control={control}
+        rules={{ required: true }}
         name="username"
-        render={({ field: { onBlur, onChange, value } }) => (
+        render={({ field: { onChange, value } }) => (
           <UI.TextInput
             helperText={errors.username?.message}
-            onBlur={onBlur}
-            onChange={onChange}
+            error={!!errors.username?.message}
+            onChangeText={onChange}
+            label="Логин"
             value={value}
           />
         )}
       />
-      <UI.Spacer size={15} />
       <Controller
         control={control}
         name="password"
-        render={({ field: { onBlur, onChange, value } }) => (
+        rules={{ required: true }}
+        render={({ field: { onChange, value } }) => (
           <UI.TextInput
             helperText={errors.password?.message}
-            onBlur={onBlur}
-            onChange={onChange}
+            error={!!errors.password?.message}
+            label="Пароль"
+            secureTextEntry
+            onChangeText={onChange}
             value={value}
           />
         )}
       />
-      <UI.Spacer size={15} />
       <Controller
         control={control}
+        rules={{ required: true }}
         name="passwordRepeat"
-        render={({ field: { onBlur, onChange, value } }) => (
+        render={({ field: { onChange, value } }) => (
           <UI.TextInput
             helperText={errors.passwordRepeat?.message}
-            onBlur={onBlur}
-            onChange={onChange}
+            error={!!errors.passwordRepeat?.message}
+            label="Повтор пароля"
+            secureTextEntry
+            onChangeText={onChange}
             value={value}
           />
         )}
       />
-      <UI.Spacer size={15} />
       <UI.Button
+        style={s.bootomContent}
         text={'Зарегистрироваться'}
-        onPress={onSubmit}
+        onPress={handleSubmit(authStore.register)}
         loading={isLoading}
       />
     </UI.Screen>

@@ -1,18 +1,26 @@
 import * as yup from 'yup'
 
 export const loginSchema = yup.object({
-  username: yup.string().required('Ник обязательный'),
+  username: yup.string().required('Поле не должно быть пустым'),
   password: yup
     .string()
-    .required('Пароль обязательный')
+    .required(' Поле не должно быть пустым')
     .min(6, 'Пароль слишком короткий'),
 })
 
 export const registerSchema = loginSchema.shape({
   passwordRepeat: yup
     .string()
-    .oneOf([yup.ref('password')], 'Пароли должны совпадать'),
+    .required()
+    .oneOf([yup.ref('password'), null], 'Пароли должны совпадать'),
 })
+// passwordRepeat: yup
+//   .string()
+//   .required('Поле не должно быть пустым')
+//   .oneOf([yup.ref('password')], 'Пароли должны совпадать'),
+
+console.log(registerSchema)
+console.log(loginSchema)
 
 export interface IRegisterForm extends yup.InferType<typeof registerSchema> {}
 
