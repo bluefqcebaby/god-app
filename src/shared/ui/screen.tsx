@@ -19,7 +19,6 @@ const Screen: FC<ScreenProps> = ({
   onPress,
   ...props
 }) => {
-  console.log('contrainer')
   const Container = safe ? SafeAreaView : pressable ? Pressable : View
   return (
     <Container

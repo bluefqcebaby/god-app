@@ -4,38 +4,53 @@ import * as UI from '@shared/ui'
 import { s } from './style'
 import { Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { timeout } from '@shared/lib/timeout'
-import { ErrorToast } from 'react-native-toast-message'
 import { useSessionStore } from '@shared/hooks/useSessionStore'
 import { checkAuth } from './api'
 import { handleRequest } from '@shared/lib/handle-error'
+import Toast from 'react-native-toast-message'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { timeout } from '@shared/lib/timeout'
 
 const SplashScreen: FC = () => {
   const sessionStore = useSessionStore()
   const navigation = useNavigation()
 
-  useEffect(() => {
-    ;(async () => {
-      const [response, err] = await handleRequest(checkAuth())
+  const init = async () => {
+    const [response, err] = await handleRequest(checkAuth())
+    await timeout(500)
 
-      if (err) {
-        return navigation.navigate({ name: 'sign-in' as never })
+    if (err) {
+      // show toast only if error not expected
+      if (err.response?.status !== 401) {
+        Toast.show({
+          type: 'error',
+          text1: 'Упс...',
+          text2: 'Непредвиденная ошибка 😔',
+        })
       }
 
-      const username = response?.data.username
-
-      // navigation.reset({ index: 0, routes: [{ name: 'tabs' as never }] })
       return navigation.reset({
         index: 0,
         routes: [{ name: 'sign-in' as never }],
       })
-      console.log(e)
+    }
 
-      return navigation.reset({
-        index: 0,
-        routes: [{ name: 'sign-in' as never }],
-      })
-    })()
+    // todo: make more safer (react-native-keychain)
+    const token = await AsyncStorage.getItem('token')
+    const username = response?.data.username
+
+    sessionStore.setJwtToken(token!)
+    sessionStore.setUsername(username)
+    sessionStore.setIsLogged(true)
+
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'tabs' as never }],
+    })
+  }
+
+  useEffect(() => {
+    init()
   }, [])
   return (
     <UI.Screen style={s.container}>

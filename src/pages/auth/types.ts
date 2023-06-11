@@ -12,15 +12,8 @@ export const registerSchema = loginSchema.shape({
   passwordRepeat: yup
     .string()
     .required()
-    .oneOf([yup.ref('password'), null], 'Пароли должны совпадать'),
+    .oneOf([yup.ref('password')], 'Пароли должны совпадать'),
 })
-// passwordRepeat: yup
-//   .string()
-//   .required('Поле не должно быть пустым')
-//   .oneOf([yup.ref('password')], 'Пароли должны совпадать'),
-
-console.log(registerSchema)
-console.log(loginSchema)
 
 export interface IRegisterForm extends yup.InferType<typeof registerSchema> {}
 

@@ -26,7 +26,6 @@ module.exports = {
         },
       },
     ],
-    '@babel/plugin-proposal-class-properties',
     'react-native-reanimated/plugin',
   ],
 }

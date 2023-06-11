@@ -13,8 +13,16 @@ export class SessionStore {
     makeAutoObservable(this)
   }
 
+  setIsLogged(value: boolean) {
+    this.isLogged = value
+  }
+
   setJwtToken(token: string) {
     this.jwtToken = token
+  }
+
+  setUsername(value: string) {
+    this.username = value
   }
 
   triggerSubs(on: AuthState) {

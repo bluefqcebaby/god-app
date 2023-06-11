@@ -44,7 +44,7 @@ export const SignUp = () => {
             <LeftArrow />
           </RN.TouchableOpacity>
         }
-        center={<UI.Text>Регистрация</UI.Text>}
+        center={<UI.Text bold>Регистрация</UI.Text>}
       />
       <Controller
         control={control}

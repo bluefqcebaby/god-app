@@ -9,7 +9,7 @@ const RootStack = createNativeStackNavigator()
 export const Routes = () => {
   return (
     <RootStack.Navigator
-      initialRouteName="sign-in"
+      initialRouteName="splash"
       screenOptions={{ headerShown: false }}>
       <RootStack.Screen name="sign-in" component={SignIn} />
       <RootStack.Screen name="sign-up" component={SignUp} />
