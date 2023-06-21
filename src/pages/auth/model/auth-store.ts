@@ -1,8 +1,11 @@
 import { SessionStore, sessionStore } from '@shared/store/session-store'
 import { makeAutoObservable, runInAction } from 'mobx'
-import { IRegisterForm, IUser } from '../types'
+import { IRegisterForm, ISignInResponseErr, IUser } from '../types'
 import { signIn } from '@shared/api/auth'
 import { authApi } from '../api'
+import { handleRequest } from '@shared/lib/handle-request'
+import Toast from 'react-native-toast-message'
+import { responseMapper } from '../const'
 
 class AuthStore {
   constructor(private session: SessionStore) {
@@ -10,8 +13,18 @@ class AuthStore {
   }
 
   async login(data: IUser) {
-    const response = await authApi.signIn(data)
-    this.session.setJwtToken(response.access_token)
+    const [response, err] = await handleRequest(authApi.signIn(data))
+    if (err) {
+      console.log(err.response?.data)
+      Toast.show({
+        type: 'error',
+        text1: 'Ошибка',
+        text2:
+          responseMapper[(err.response?.data as ISignInResponseErr).message],
+      })
+      return
+    }
+    // this.session.setJwtToken(response.access_token)
   }
 
   async register(data: IRegisterForm) {

@@ -1,8 +1,7 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
-import { Routes } from './routes'
-import { colors } from '../constants/styles'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import CustomText from '../components/custom-text'
+import * as UI from '@shared/ui'
+import { colors } from '@shared/consts/colors'
 
 const Tab = createMaterialBottomTabNavigator()
 
@@ -35,7 +34,7 @@ export const TabsStack = () => {
           component={elem.screen}
           options={{
             //@ts-expect-error
-            tabBarLabel: <CustomText size={12}>{elem.title}</CustomText>,
+            tabBarLabel: <UI.Text size={12}>{elem.title}</UI.Text>,
             tabBarIcon: ({ focused }) => (
               <MaterialCommunityIcons
                 color={focused ? colors.PRIMARY_BLUE : colors.GRAY}

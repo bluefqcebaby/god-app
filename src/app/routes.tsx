@@ -14,7 +14,7 @@ export const Routes = () => {
       <RootStack.Screen name="sign-in" component={SignIn} />
       <RootStack.Screen name="sign-up" component={SignUp} />
       <RootStack.Screen name="splash" component={SplashScreen} />
-      {/* <RootStack.Screen name="tabs" component={TabsStack} /> */}
+      <RootStack.Screen name="tabs" component={TabsStack} />
       {/* <RootStack.Screen name="person-chat" component={PersonChat} /> */}
     </RootStack.Navigator>
   )

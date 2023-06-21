@@ -22,3 +22,7 @@ export interface IUser extends yup.InferType<typeof loginSchema> {}
 export interface ISignInResponse {
   access_token: string
 }
+
+export interface ISignInResponseErr {
+  message: string
+}

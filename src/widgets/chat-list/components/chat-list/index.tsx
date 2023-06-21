@@ -52,7 +52,7 @@ export const ChatCard = observer(({ username, idx }) => {
       </View>
       {chat.isMyself && <UI.Text secondary>ты</UI.Text>}
       <View>
-        <UI.Text size={15} props={{ numberOfLines: 2 }}>
+        <UI.Text size={15} numberOfLines={2}>
           {chat.message}
         </UI.Text>
       </View>
